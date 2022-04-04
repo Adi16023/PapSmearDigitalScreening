@@ -1,9 +1,5 @@
-# USAGE
-# python extract_features.py
-
-# import the necessary packages
 from sklearn.preprocessing import LabelEncoder
-from keras.applications import ResNet50
+from keras.applications import resnet_v2
 from keras.applications import imagenet_utils
 from keras.preprocessing.image import img_to_array
 from keras.preprocessing.image import load_img
@@ -19,7 +15,7 @@ args = parser.parse_args()
 
 # load the network and initialize the label encoder
 print("[INFO] loading network...")
-model = ResNet50(weights="imagenet", include_top=False)
+model = resnet_v2(weights="imagenet", include_top=False)
 le = None
 
 # loop over the data splits
@@ -31,7 +27,6 @@ for split in ("data", "dummy"):
 
 	# randomly shuffle the image paths and then extract the class
 	# labels from the file paths
-	#random.shuffle(imagePaths)
 	labels = [p.split(os.path.sep)[-2] for p in imagePaths]
 
 	# if the label encoder is None, create it
@@ -40,7 +35,7 @@ for split in ("data", "dummy"):
 		le.fit(labels)
 
 	# open the output CSV file for writing
-	csvPath = os.path.sep.join(["ResNet50_output",
+	csvPath = os.path.sep.join(["resnet_v2_output",
 		"{}.csv".format(split)])
 	csv = open(csvPath, "w")
 
@@ -91,7 +86,7 @@ for split in ("data", "dummy"):
 	csv.close()
            
 # serialize the label encoder to disk
-f = open("ResNet50_output/le.cpickle", "wb")
+f = open("resnet_v2_output/le.cpickle", "wb")
 f.write(pickle.dumps(le))
 f.close()
-#print(features.size)
+
