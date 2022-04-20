@@ -8,24 +8,21 @@ import fitnessFUNs
 from sklearn.metrics import accuracy_score
 from sklearn import svm
 
-
-
 def selector(algo,func_details,popSize,Iter,completeData):
     function_name=func_details[0]
     lb=func_details[1]
     ub=func_details[2]
-   
-    
-    DatasetSplitRatio=0.3  #Training 70%, Testing 30%
+
+    DatasetSplitRatio=0.3
     
     DataFile=completeData
       
     data_set=numpy.loadtxt(open(DataFile,"rb"),delimiter=",",skiprows=0)
-    numRowsData=numpy.shape(data_set)[0]    # number of instances in the  dataset
-    numFeaturesData=numpy.shape(data_set)[1]-1 #number of features in the  dataset
+    numRowsData=numpy.shape(data_set)[0] 
+    numFeaturesData=numpy.shape(data_set)[1]-1
 
-    dataInput=data_set[0:numRowsData,0:-1] # 1: for class in first column, 0:-1 for class in last column
-    dataTarget=data_set[0:numRowsData,-1]  # -1 for class in last column, 0 for class in first column
+    dataInput=data_set[0:numRowsData,0:-1] 
+    dataTarget=data_set[0:numRowsData,-1] 
     trainInput, testInput, trainOutput, testOutput = train_test_split(dataInput, dataTarget, test_size=DatasetSplitRatio, random_state=1) 
     ratio=0.5
     validationInput, testInput, validationOutput, testOutput = train_test_split(testInput, testOutput, test_size=ratio, random_state=1)
@@ -43,8 +40,6 @@ def selector(algo,func_details,popSize,Iter,completeData):
     reduced_data_validation_global=validationInput[:,reducedfeatures]
     
     svc=svm.SVC(kernel='rbf').fit(reduced_data_train_global,trainOutput)
-
-         # Compute the accuracy of the prediction
          
     target_pred_train = svc.predict(reduced_data_train_global)
     acc_train = float(accuracy_score(trainOutput, target_pred_train))
@@ -56,9 +51,6 @@ def selector(algo,func_details,popSize,Iter,completeData):
     
     target_pred_validation = svc.predict(reduced_data_validation_global)
     acc_val = float(accuracy_score(validationOutput, target_pred_validation))
-    x.valAcc=acc_val
+    x.valAcc=acc_val 
     
-    
-    return x
-    
-#####################################################################    
+    return x   

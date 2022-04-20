@@ -45,25 +45,19 @@ def join_csv(csv_list,dset_name):
         return dset_name
 
 datasets=[join_csv(csv_list,dset_name='final_feat')]
-        
-# Select number of repetitions for each experiment. 
-# To obtain meaningful statistical results, usually 30 independent runs 
-# are executed for each algorithm.
+
 NumOfRuns=args.num_runs
 
-# Select general parameters for all optimizers (population size, number of iterations)
 PopulationSize = args.pop_size
 Iterations= args.num_iter
 
-#Export results ?
+
 Export = args.export
 
-#ExportToFile="YourResultsAreHere.csv"
-#Automaticly generated file name by date and time
 ExportToFile="experiment"+time.strftime("%Y-%m-%d-%H-%M-%S")+".csv" 
 
 
-# CSV Header for for the convergence 
+
 CnvgHeader1=[]
 CnvgHeader2=[]
 Flag = False

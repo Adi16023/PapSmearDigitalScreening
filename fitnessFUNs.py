@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import Binarizer
 from sklearn import metrics
-          
-#____________________________________________________________________________________       
+                
 def FN1(I,trainInput,trainOutput,dim):            
          data_train_internal, data_test_internal, target_train_internal, target_test_internal = train_test_split(trainInput, trainOutput, test_size=0.34, random_state=1)
          reducedfeatures=[]
@@ -28,7 +27,6 @@ def FN1(I,trainInput,trainOutput,dim):
 #_____________________________________________________________________       
 def getFunctionDetails(a):
     
-    # [name, lb, ub, dim]
     param = {  0:["FN1",-1,1]
 
             }
